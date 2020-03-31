@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Outstanding loans</title>
+</head>
+<body>
+<h1>Outstanding loans</h1>
+<h2>Books</h2>
+<table>
+        <tr>
+            <th>Username</th>
+            <th>Due date</th>
+            <th>Book ID</th>
+            <th>Book title</th>
+        </tr>
+        {% for outstanding_book_loan in outstanding_loans.books %}
+            <tr>
+                <td>{{ outstanding_book_loan.user.username }}</td>
+                <td>{{ outstanding_book_loan.due_date }}</td>
+                <td>{{ outstanding_book_loan.book.pk }}</td>
+                <td>{{ outstanding_book_loan.book.title }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <h2>Magazines</h2>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Due date</th>
+            <th>Magazine ID</th>
+            <th>Magazine title</th>
+        </tr>
+        {% for outstanding_magazine_loan in outstanding_loans.magazines %}
+            <tr>
+                <td>{{ outstanding_magazine_loan.user.username }}</td>
+                <td>{{ outstanding_magazine_loan.due_date }}</td>
+                <td>{{ outstanding_magazine_loan.magazine.pk }}</td>
+                <td>{{ outstanding_magazine_loan.magazine.title }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

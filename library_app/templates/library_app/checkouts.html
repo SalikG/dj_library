@@ -1,0 +1,57 @@
+<h1>Checkouts</h1>
+<hr>
+<div style="display: table; box-sizing: border-box; width: 100vw">
+<div style="float: left; width: 40%; padding: 20px">
+<h1>Books</h1>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Due date</th>
+        <th>Status</th>
+    </tr>
+    {% for bookLoan in checkouts.books %}
+        <form action="{% url 'library_app:checkin_book' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="book_loan_id" value="{{ bookLoan.pk }}">
+            <tr>
+                <td>{{ bookLoan.book.title}}</td>
+                <td>{{ bookLoan.due_date }}</td>
+                {% if bookLoan.is_handed_in %}
+                    <td>Handed in</td>
+                {% else %}
+                    <td>Not handed in</td>
+                {% endif  %}
+                <td><button type="submit">Hand-in</button></td>
+            </tr>
+        </form>
+    {% endfor %}
+</table>
+</div>
+<div style="float: right; width: 40%; padding: 20px">
+<h1>Magazines</h1>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Due date</th>
+        <th>Status</th>
+    </tr>
+    {% for magazine_loan in checkouts.magazines %}
+        <form action="{% url 'library_app:checkin_magazine' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="magazine_loan_id" value="{{ magazine_loan.pk }}">
+            <tr>
+                <td>{{ magazine_loan.magazine.title}}</td>
+                <td>{{ magazine_loan.due_date }}</td>
+                {% if magazine_loan.is_handed_in %}
+                    <td>Handed in</td>
+                {% else %}
+                    <td>Not handed in</td>
+                {% endif  %}
+                <td><button type="submit">Hand-in</button></td>
+            </tr>
+        </form>
+    {% endfor %}
+</table>
+</div>
+</div>
+<hr>

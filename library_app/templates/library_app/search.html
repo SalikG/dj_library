@@ -1,0 +1,54 @@
+
+<h1>Search</h1>
+<hr>
+<form action="{% url 'library_app:search' %}" method="post">
+    {% csrf_token %}
+    <input placeholder="Title search value" type="text" name="title_search_value">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+<hr>
+<h1>Books</h1>
+<h3 style="color: red">{{ book_error }}</h3>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+    </tr>
+    {% for book in books %}
+        <form action="{% url 'library_app:checkout_book' %}" method="post">
+        {% csrf_token %}
+            <input type="hidden" name="book_id" value="{{ book.id }}">
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author.first_name }} {{ book.author.last_name }}</td>
+                <td>{{ book.genre }}</td>
+                <td><button type="submit" name="check_out">Check-out</button></td>
+            </tr>
+        </form>
+    {% endfor %}
+</table>
+
+<hr>
+
+<h1>Magazines</h1>
+<h3 style="color: red">{{ magazine_error }}</h3>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Genre</th>
+    </tr>
+    {% for magazine in magazines %}
+        <form action="{% url 'library_app:checkout_magazine' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="magazine_id" value="{{ magazine.id }}">
+            <tr>
+                <td>{{ magazine.title }}</td>
+                <td>{{ magazine.genre }}</td>
+                <td><button type="submit">Check-out</button></td>
+            </tr>
+        </form>
+    {% endfor %}
+</table>
